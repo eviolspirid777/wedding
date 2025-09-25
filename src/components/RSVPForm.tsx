@@ -56,7 +56,53 @@ export const RSVPForm = () => {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-pink-50">
+    <section className="relative py-16 bg-gradient-to-b from-white to-pink-50">
+      <div>
+        {/*Right */}
+        <div className="absolute bottom-215 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-185 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-155 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-125 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-95 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-65 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-35 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        {/*Left */}
+        <div className="absolute bottom-215 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-185 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-155 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-125 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-95 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-65 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+        <div className="absolute bottom-35 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+          🍂
+        </div>
+      </div>
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
@@ -206,7 +252,7 @@ export const RSVPForm = () => {
           </div>
 
           <div className="mt-6 text-center text-sm text-gray-500">
-            Пожалуйста, подтвердите присутствие до 1 августа 2024 года
+            Пожалуйста, подтвердите присутствие до 20 октября 2025 года
           </div>
         </form>
       </div>

@@ -1,4 +1,10 @@
-import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Flower,
+  Heart,
+} from "lucide-react";
 import { useState } from "react";
 
 export const WeddingDate = () => {
@@ -82,7 +88,90 @@ export const WeddingDate = () => {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-pink-50">
+    <section className="relative py-16 bg-gradient-to-b from-white to-pink-50">
+      {/*Left flowers */}
+      <div className="z-1">
+        <div className="absolute bottom-0 left-40 animate-bounce opacity-30">
+          <Flower className="w-10 h-10 text-amber-400" />
+        </div>
+        <div className="absolute bottom-0 left-80 animate-bounce opacity-30">
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div
+          className={`absolute bottom-30 left-80 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Flower className="w-10 h-10 text-amber-400" />
+        </div>
+        <div
+          className={`absolute bottom-30 left-40 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div
+          className={`absolute bottom-60 left-40 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Flower className="w-10 h-10 text-yellow-400" />
+        </div>
+        <div
+          className={`absolute bottom-60 left-80 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div
+          className={`absolute bottom-90 left-80 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Flower className="w-10 h-10 text-yellow-400" />
+        </div>
+        <div
+          className={`absolute bottom-90 left-40 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div
+          className={`absolute bottom-120 left-40 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Flower className="w-10 h-10 text-yellow-400" />
+        </div>
+        <div
+          className={`absolute bottom-120 left-80 animate-bounce opacity-30 may-be-hidden`}
+        >
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+      </div>
+      {/*Right flowers */}
+      <div>
+        <div className="absolute bottom-0 right-40 animate-bounce opacity-30">
+          <Flower className="w-10 h-10 text-amber-400" />
+        </div>
+        <div className="absolute bottom-0 right-80 animate-bounce opacity-30">
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div className="absolute bottom-30 right-80 animate-bounce opacity-30 may-be-hidden">
+          <Flower className="w-10 h-10 text-amber-400" />
+        </div>
+        <div className="absolute bottom-30 right-40 animate-bounce opacity-30 may-be-hidden">
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div className="absolute bottom-60 right-40 animate-bounce opacity-30 may-be-hidden">
+          <Flower className="w-10 h-10 text-yellow-400" />
+        </div>
+        <div className="absolute bottom-60 right-80 animate-bounce opacity-30 may-be-hidden">
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div className="absolute bottom-90 right-80 animate-bounce opacity-30 may-be-hidden">
+          <Flower className="w-10 h-10 text-yellow-400" />
+        </div>
+        <div className="absolute bottom-90 right-40 animate-bounce opacity-30 may-be-hidden">
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+        <div className="absolute bottom-120 right-40 animate-bounce opacity-30 may-be-hidden">
+          <Flower className="w-10 h-10 text-yellow-400" />
+        </div>
+        <div className="absolute bottom-120 right-80 animate-bounce opacity-30 may-be-hidden">
+          <Heart className="w-10 h-10 text-pink-400 animate-bounce" />
+        </div>
+      </div>
+
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
@@ -94,7 +183,7 @@ export const WeddingDate = () => {
           <p className="text-xl text-gray-600">Отметьте в своем календаре</p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md mx-auto border border-pink-100">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md mx-auto border border-pink-100 z-2">
           <div className="flex items-center justify-between mb-6">
             <button
               onClick={() => navigateMonth("prev")}
