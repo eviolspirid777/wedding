@@ -26,7 +26,7 @@ export const WeddingInvitation = () => {
             </div>
           </div>
           <SplitText
-            text="Наталья & Александр"
+            text="Наталия & Александр"
             className="text-6xl md:text-8xl font-serif text-gray-800 mb-4 tracking-wide"
             delay={100}
             duration={0.4}
