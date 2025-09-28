@@ -41,7 +41,7 @@ export const WeddingInvitation = () => {
           <div className="w-32 h-1 bg-gradient-to-r from-pink-300 to-amber-300 mx-auto mb-8 rounded-full"></div>
 
           <p className="text-xl md:text-2xl text-gray-600 font-light mb-8 leading-relaxed">
-            Приглашаем вас разделить с нами
+            Мы приглашаем вас разделить с нами
             <br />
             самый счастливый день в нашей жизни
           </p>
