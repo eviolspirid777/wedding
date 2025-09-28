@@ -1,19 +1,12 @@
-import {
-  CheckCircle,
-  Send,
-  User,
-  Wine,
-  MessageCircle,
-  CircleX,
-} from "lucide-react";
+import { CheckCircle, Send, User, MessageCircle, CircleX } from "lucide-react";
 import { useState } from "react";
 import confetti from "canvas-confetti";
+import axios from "axios";
 
 export const RSVPForm = () => {
   const [formData, setFormData] = useState({
     names: [""],
-    dietaryRestrictions: "",
-    message: "",
+    wishes: "",
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -45,10 +38,13 @@ export const RSVPForm = () => {
 
   const [basePersonsForms, setBasePersonsForms] = useState<number[]>([0]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Здесь будет логика отправки формы
     console.log("Form submitted:", formData);
+    console.log(import.meta.env);
+    const API_URL = import.meta.env.VITE_BASE_URL;
+    await axios.post(`${API_URL}/v1/api/Wedding/post-wedding-form`, formData);
     setIsSubmitted(true);
   };
 
@@ -122,47 +118,47 @@ export const RSVPForm = () => {
     <section className="relative py-16 bg-gradient-to-b from-white to-pink-50">
       <div>
         {/*Right */}
-        <div className="absolute top-215 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-195 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-185 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-165 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-155 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-135 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-125 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-105 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-95 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-75 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-65 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-45 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-35 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-15 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
         {/*Left */}
-        <div className="absolute top-215 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-195 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-185 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-165 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-155 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-135 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-125 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-105 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-95 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-75 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-65 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-45 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute top-35 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-15 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
       </div>
@@ -199,22 +195,6 @@ export const RSVPForm = () => {
               Добавить человека +
             </span>
 
-            {/* Пищевые ограничения */}
-            <div className="md:col-span-2">
-              <label className="flex items-center space-x-2 text-gray-700 font-medium mb-3">
-                <Wine className="w-5 h-5 text-blue-400" />
-                <span>Особенности питания или аллергии</span>
-              </label>
-              <input
-                type="text"
-                name="dietaryRestrictions"
-                value={formData.dietaryRestrictions}
-                onChange={handleInputChange}
-                className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-300"
-                placeholder="Например: вегетарианство, аллергия на орехи..."
-              />
-            </div>
-
             {/* Сообщение */}
             <div className="md:col-span-2">
               <label className="flex items-center space-x-2 text-gray-700 font-medium mb-3">
@@ -222,9 +202,9 @@ export const RSVPForm = () => {
                 <span>Пожелания молодоженам</span>
               </label>
               <textarea
-                name="message"
+                name="wishes"
                 rows={4}
-                value={formData.message}
+                value={formData.wishes}
                 onChange={handleInputChange}
                 className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-300 resize-none"
                 placeholder="Ваши теплые пожелания и слова поддержки..."
