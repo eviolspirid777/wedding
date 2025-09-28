@@ -1,12 +1,17 @@
-import { CheckCircle, Send, User, Wine, MessageCircle } from "lucide-react";
+import {
+  CheckCircle,
+  Send,
+  User,
+  Wine,
+  MessageCircle,
+  CircleX,
+} from "lucide-react";
 import { useState } from "react";
+import confetti from "canvas-confetti";
 
 export const RSVPForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    attending: "",
-    guests: "1",
-    alcoholPreference: "",
+    names: [""],
     dietaryRestrictions: "",
     message: "",
   });
@@ -19,11 +24,26 @@ export const RSVPForm = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    if (name.startsWith("name-")) {
+      const personId = parseInt(name.split("-")[1]);
+      const personIndex = basePersonsForms.indexOf(personId);
+
+      setFormData((prev) => ({
+        ...prev,
+        names: prev.names.map((nameValue, index) =>
+          index === personIndex ? value : nameValue
+        ),
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
+
+  const [basePersonsForms, setBasePersonsForms] = useState<number[]>([0]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,26 +52,69 @@ export const RSVPForm = () => {
     setIsSubmitted(true);
   };
 
-  if (isSubmitted) {
-    return (
-      <section className="py-16 bg-gradient-to-b from-white to-green-50">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="bg-white rounded-3xl p-12 shadow-2xl border border-green-100">
-            <div className="flex justify-center mb-6">
-              <div className="p-4 bg-green-500 rounded-full">
-                <CheckCircle className="w-12 h-12 text-white" />
-              </div>
-            </div>
-            <h2 className="text-3xl font-serif text-gray-800 mb-4">
-              Спасибо за ответ!
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Ваша заявка принята. Мы очень рады, что вы разделите с нами этот
-              особенный день. До встречи на свадьбе!
-            </p>
-          </div>
+  const renderInputFields = () =>
+    basePersonsForms.map((personId, idx) => (
+      <div key={personId} className="md:col-span-2">
+        <label className="flex items-center space-x-2 text-gray-700 font-medium mb-3">
+          <User className="w-5 h-5 text-pink-400" />
+          <span>Имя*</span>
+        </label>
+        <div className="relative">
+          <input
+            type="text"
+            name={`name-${personId}`}
+            required
+            value={formData.names[idx]}
+            onChange={handleInputChange}
+            className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-300"
+            placeholder="Введите имя гостя"
+          />
+          {basePersonsForms.length > 1 && (
+            <CircleX
+              onClick={() => {
+                const personIndex = basePersonsForms.indexOf(personId);
+                setBasePersonsForms((prev) =>
+                  prev.filter((id) => id !== personId)
+                );
+                setFormData((prev) => ({
+                  ...prev,
+                  names: prev.names.filter((_, index) => index !== personIndex),
+                }));
+              }}
+              className="absolute bottom-4 right-3 text-red-600 cursor-pointer"
+            />
+          )}
         </div>
-      </section>
+      </div>
+    ));
+
+  if (isSubmitted) {
+    confetti({
+      particleCount: 140,
+      spread: 120,
+      origin: { y: 0.6 },
+    });
+    return (
+      <>
+        <section className="py-16 bg-gradient-to-b from-white to-green-50">
+          <div className="max-w-2xl mx-auto px-4 text-center">
+            <div className="bg-white rounded-3xl p-12 shadow-2xl border border-green-100">
+              <div className="flex justify-center mb-6">
+                <div className="p-4 bg-green-500 rounded-full">
+                  <CheckCircle className="w-12 h-12 text-white" />
+                </div>
+              </div>
+              <h2 className="text-3xl font-serif text-gray-800 mb-4">
+                Спасибо за ответ!
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Ваша заявка принята. Мы очень рады, что вы разделите с нами этот
+                особенный день. До встречи на свадьбе!
+              </p>
+            </div>
+          </div>
+        </section>
+      </>
     );
   }
 
@@ -59,47 +122,47 @@ export const RSVPForm = () => {
     <section className="relative py-16 bg-gradient-to-b from-white to-pink-50">
       <div>
         {/*Right */}
-        <div className="absolute bottom-215 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-215 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-185 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-185 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-155 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-155 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-125 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-125 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-95 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-95 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-65 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-65 right-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-35 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-35 right-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
         {/*Left */}
-        <div className="absolute bottom-215 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-215 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-185 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-185 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-155 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-155 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-125 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-125 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-95 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-95 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-65 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-65 left-60 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
-        <div className="absolute bottom-35 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
+        <div className="absolute top-35 left-30 animate-bounce opacity-30 text-5xl text-orange-400 w-10 h-10 form-hidden">
           🍂
         </div>
       </div>
@@ -122,97 +185,25 @@ export const RSVPForm = () => {
         >
           <div className="grid md:grid-cols-2 gap-6">
             {/* Имя */}
-            <div className="md:col-span-2">
-              <label className="flex items-center space-x-2 text-gray-700 font-medium mb-3">
-                <User className="w-5 h-5 text-pink-400" />
-                <span>Ваше имя *</span>
-              </label>
-              <input
-                type="text"
-                name="name"
-                required
-                value={formData.name}
-                onChange={handleInputChange}
-                className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-300"
-                placeholder="Введите ваше полное имя"
-              />
-            </div>
-
-            {/* Присутствие */}
-            <div>
-              <label className="block text-gray-700 font-medium mb-3">
-                Сможете ли присутствовать? *
-              </label>
-              <select
-                name="attending"
-                required
-                value={formData.attending}
-                onChange={handleInputChange}
-                className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-300"
-              >
-                <option value="">Выберите ответ</option>
-                <option value="yes">Да, обязательно приду!</option>
-                <option value="no">К сожалению, не смогу</option>
-                <option value="maybe">Пока не уверен(а)</option>
-              </select>
-            </div>
-
-            {/* Количество гостей */}
-            <div>
-              <label className="block text-gray-700 font-medium mb-3">
-                Количество гостей
-              </label>
-              <select
-                name="guests"
-                value={formData.guests}
-                onChange={handleInputChange}
-                className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-300"
-              >
-                <option value="1">1 (только я)</option>
-                <option value="2">2 (я + спутник/ца)</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
-            </div>
-
-            {/* Предпочтения по алкоголю */}
-            <div className="md:col-span-2">
-              <label className="flex items-center space-x-2 text-gray-700 font-medium mb-3">
-                <Wine className="w-5 h-5 text-purple-400" />
-                <span>Предпочтения по алкоголю</span>
-              </label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[
-                  "Вино красное",
-                  "Вино белое",
-                  "Шампанское",
-                  "Крепкий алкоголь",
-                  "Пиво",
-                  "Безалкогольные напитки",
-                  "Не употребляю",
-                ].map((option) => (
-                  <label
-                    key={option}
-                    className="flex items-center space-x-2 cursor-pointer"
-                  >
-                    <input
-                      type="radio"
-                      name="alcoholPreference"
-                      value={option}
-                      checked={formData.alcoholPreference === option}
-                      onChange={handleInputChange}
-                      className="w-4 h-4 text-pink-400 focus:ring-pink-300"
-                    />
-                    <span className="text-sm text-gray-600">{option}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
+            {renderInputFields()}
+            <span
+              onClick={() => {
+                setBasePersonsForms((prev) => [...prev, Math.max(...prev) + 1]);
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  names: [...prevFormData.names, ""],
+                }));
+              }}
+              className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent cursor-pointer mx-3 w-fit"
+            >
+              Добавить человека +
+            </span>
 
             {/* Пищевые ограничения */}
             <div className="md:col-span-2">
-              <label className="block text-gray-700 font-medium mb-3">
-                Особенности питания или аллергии
+              <label className="flex items-center space-x-2 text-gray-700 font-medium mb-3">
+                <Wine className="w-5 h-5 text-blue-400" />
+                <span>Особенности питания или аллергии</span>
               </label>
               <input
                 type="text"
